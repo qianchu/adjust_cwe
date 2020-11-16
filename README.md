@@ -31,6 +31,8 @@ We have processed evaluation data (CoSimlex, WiC, usim, and scws) ready to be do
 
 python main.py  --align [wikipedia data word alignment file] --para [wikipedia data] --tgt_data [Roberta-large precomputed embeddings] --src_data [Fasttext precomputed embeddings] --cluster type --src_lg en --tgt_lg en --tgt --test_data_dir [evaluation data] --norm normalize,center 
 
+The alignment matrix will be output as ./en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0__mim.pt
+
 ## About the test results
 usim and scws results are printed when you run main.py
 
@@ -49,3 +51,4 @@ Test predictions for WiC can be found in:
     after alignment: [evaluation data]/eval_data/WiC_dataset/test/en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0_mim
 
     You can then submit the test predictions to https://competitions.codalab.org/competitions/20010
+    
