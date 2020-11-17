@@ -4,23 +4,27 @@ This is the repository for the code in "Towards Better Context-aware Lexical Sem
 ## Training Data
 In the paper, we train the static anchors from top most frequent 200k words using the Wikipedia dump. In practice, there is not much difference if you just use a smaller subset of Wikipedia. Here we release randomly selected 200k Wikipedia sentences as training data to construct the static anchors. 
 
-You can download example data for aligning Roberta-large towards Fasttext from the links below:
+You can download example data from the links below:
 
 [wikipedia data]: https://www.dropbox.com/s/tzun5ft47qx01g3/en_200k_shuffled.witespace.out_for_wa.en2en?dl=0
 
 [wikipedia data word alignment file]: https://www.dropbox.com/s/s55sr7e8g2tkagj/en_200k_shuffled.witespace.out_for_wa.align.en2en?dl=0
 
-[Roberta-large precomputed embeddings]: https://www.dropbox.com/s/1i5kkrwy9q6ilv4/wiki_roberta.zip?dl=0
+[Roberta-large]: https://www.dropbox.com/s/1i5kkrwy9q6ilv4/wiki_roberta.zip?dl=0
 
-[Fasttext precomputed embeddings]: https://www.dropbox.com/s/eyfpstqg6l59v05/wiki_fasttext.zip?dl=0
+[Fasttext]: https://www.dropbox.com/s/eyfpstqg6l59v05/wiki_fasttext.zip?dl=0
+
+[Bert-large-cased]: https://www.dropbox.com/s/mre7501y6fyx4vz/en_200k_shuffled.witespace.bert-large-cased.ly-12.hdf5.npy?dl=0
 
 wikipedia 200k data: [wikipedia data]
 
 wikipedia data word alignment file (this is automatically extracted as 0-0 1-1...): [wikipedia data word alignment file]
 
-Roberta-large precomputed token-level embeddings in npy file: [Roberta-large precomputed embeddings]
+Roberta-large precomputed token-level embeddings in npy file: [Roberta-large]
 
-Fasttext precomputed embeddings in npy file: [Fasttext precomputed embeddings]
+Fasttext precomputed embeddings in npy file: [Fasttext]
+
+Bert-large-cased precomputed embeddings in npy: [Bert-large-cased]
 
 ## Evaluation data
 
