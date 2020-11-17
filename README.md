@@ -28,7 +28,8 @@ Fasttext precomputed embeddings in npy file: [Fasttext precomputed embeddings]
 
 We have processed evaluation data (CoSimlex, WiC, usim, and scws) ready to be downloaded from [evaluation data]
 
-## To compute static anchors and to train the alignment, you can run the following:
+## To compute static anchors and to train the alignment
+You can run the following to train the alignment from Roberta-large to Fasttext, and evaluate on the transformed Roberta-large space. 
 
 ```python
 python main.py  \
