@@ -39,8 +39,8 @@ You can run the following to train the alignment from Roberta-large to Fasttext,
 python main.py  \
     --align [wikipedia data word alignment file] \
        --para [wikipedia data] \
-       --tgt_data [Roberta-large precomputed embeddings] \
-       --src_data [Fasttext precomputed embeddings] \
+       --tgt_data [Roberta-large] \
+       --src_data [Fasttext] \
        --cluster type \
        --src_lg en \
        --tgt_lg en \
