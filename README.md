@@ -2,7 +2,7 @@
 This is the repository for the code in "Towards Better Context-aware Lexical Semantics:Adjusting Contextualized Representations through Static Anchors"
 
 ## Training Data
-In the paper, we train the static anchors from top 200k words using around 1M Wikipedia contexts. In practice, there is not much difference if you just use a smaller subset of Wikipedia. Here we release randomly selected 200k Wikipedia sentences as training data to construct the static anchors. 
+In the paper, we train the static anchors from top most frequent 200k words using the Wikipedia dump. In practice, there is not much difference if you just use a smaller subset of Wikipedia. Here we release randomly selected 200k Wikipedia sentences as training data to construct the static anchors. 
 
 You can download example data for aligning Roberta-large towards Fasttext from the links below:
 
