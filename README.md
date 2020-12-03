@@ -28,7 +28,7 @@ Bert-large-cased precomputed embeddings in npy: [Bert-large-cased]
 
 ## Evaluation data
 
-[evaluation data]: https://www.dropbox.com/s/6ch7qykv71w3530/eval_data.zip?dl=0
+[evaluation data]: https://www.dropbox.com/s/q6l6l0gjig1abqc/eval_data.zip?dl=0
 
 We have processed evaluation data (CoSimlex, WiC, usim, and scws) ready to be downloaded from [evaluation data]
 
