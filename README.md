@@ -26,6 +26,8 @@ Fasttext precomputed embeddings in npy file: [Fasttext]
 
 Bert-large-cased precomputed embeddings in npy: [Bert-large-cased]
 
+Alternatively, you can extract features using code from: https://github.com/qianchu/transformers/
+
 ## Evaluation data
 
 [evaluation data]: https://www.dropbox.com/s/q6l6l0gjig1abqc/eval_data.zip?dl=0
