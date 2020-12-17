@@ -10,21 +10,21 @@ You can download example data from the links below:
 
 [wikipedia data word alignment file]: https://www.dropbox.com/s/s55sr7e8g2tkagj/en_200k_shuffled.witespace.out_for_wa.align.en2en?dl=0
 
-[Roberta-large]: https://www.dropbox.com/s/1i5kkrwy9q6ilv4/wiki_roberta.zip?dl=0
+[Roberta\-large]: https://www.dropbox.com/s/1i5kkrwy9q6ilv4/wiki_roberta.zip?dl=0
 
 [Fasttext]: https://www.dropbox.com/s/eyfpstqg6l59v05/wiki_fasttext.zip?dl=0
 
-[Bert-large-cased]: https://www.dropbox.com/s/mre7501y6fyx4vz/en_200k_shuffled.witespace.bert-large-cased.ly-12.hdf5.npy?dl=0
+[Bert\-large\-cased]: https://www.dropbox.com/s/mre7501y6fyx4vz/en_200k_shuffled.witespace.bert-large-cased.ly-12.hdf5.npy?dl=0
 
 wikipedia 200k data: [wikipedia data]
 
 wikipedia data word alignment file (this is automatically extracted as 0-0 1-1...): [wikipedia data word alignment file]
 
-Roberta-large precomputed token-level embeddings in npy file: [Roberta-large]
+Roberta-large precomputed token-level embeddings in npy file: [Roberta\-large]
 
 Fasttext precomputed embeddings in npy file: [Fasttext]
 
-Bert-large-cased precomputed embeddings in npy: [Bert-large-cased]
+Bert-large-cased precomputed embeddings in npy: [Bert\-large\-cased]
 
 Alternatively, you can extract features using code from: https://github.com/qianchu/transformers/
 
@@ -54,7 +54,7 @@ python main.py  \
 
 The alignment matrix will be output as './en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0__mim.pt'
 
-If you chose centering in the preprocessing step, the mean numpy array for the target embeddings (which is Roberta in this example) will be stored in 'en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0__mean_tgt.npy'. The mean numpy array for the source embeddings (which is Fasttext in this example) will be stored in 'en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0__mean_src.npy'.
+If you chose centering in the preprocessing step, the mean numpy array for the target embeddings (which is Roberta in this example) will be stored in 'en_roberta\-large\~fasttext_wiki_en_1024_bin_200000_type0__mean_tgt.npy'. The mean numpy array for the source embeddings (which is Fasttext in this example) will be stored in 'en_roberta\-large\~fasttext_wiki_en_1024_bin_200000_type0__mean_src.npy'.
 
 
 ## About the test results
