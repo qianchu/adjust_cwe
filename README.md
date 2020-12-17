@@ -54,7 +54,8 @@ python main.py  \
 
 The alignment matrix will be output as './en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0__mim.pt'
 
-If you chose centering in the preprocessing step, the mean numpy array will be stored in 'en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0__mim.pt'
+If you chose centering in the preprocessing step, the mean numpy array for the target embeddings (which is Roberta in this example) will be stored in 'en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0__mean_tgt.npy'. The mean numpy array for the source embeddings (which is Fasttext in this example) will be stored in 'en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0__mean_src.npy'.
+
 
 ## About the test results
 usim and scws results are printed when you run main.py
