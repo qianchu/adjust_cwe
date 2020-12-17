@@ -53,6 +53,7 @@ python main.py  \
 ```
 
 The alignment matrix will be output as './en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0__mim.pt'
+
 If you chose centering in the preprocessing step, the mean numpy array will be stored in 'en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0__mim.pt'
 
 ## About the test results
