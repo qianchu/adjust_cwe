@@ -110,6 +110,7 @@ def produce_key(sent):
 def normalize_embeddings(emb, types, mean=None):
     """
     Normalize embeddings by their norms / recenter them.
+    types could be a comma separated string of 'normalize' or 'center'
     """
     for t in types.split(','):
         if t == '':

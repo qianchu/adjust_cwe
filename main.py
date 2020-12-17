@@ -1647,6 +1647,8 @@ if __name__=='__main__':
     args.add_argument('--src',action='store_true', default=False,help='whether to use target side for evaluation')
     args.add_argument('--dim', type=int,help='dimension size of the base embed')
     args.add_argument('--base_embed_force', type=str, help='base embed model. See variable_names.py for details')
+    args.add_argument('--eval',action='store_true',default=False,help='whether to perform evaluation')
+
     args=args.parse_args()
 
     # type level params
