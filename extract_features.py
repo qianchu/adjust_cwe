@@ -250,7 +250,7 @@ def tokenid2wordid(input_ids,tokenizer,examples):
         input_id=input_ids[i]
         input_start=0
         for w in example.split():
-            w_ids=tokenizer.encode(w,add_special_tokens=False,add_prefix_space=True)
+            w_ids=tokenizer.encode(w,add_special_tokens=False)
 
             if len(w_ids)==0:
                 print (w_ids)
@@ -269,7 +269,11 @@ def tokenid2wordid(input_ids,tokenizer,examples):
             input_end=input_start+len(w_ids)
             w2token.append((input_start,input_end))
             input_start=input_end
+        
+        print (examples.split())
 
+        print (w2token)
+        print (input_ids)
         w2token_batch.append(w2token)
         input_ids_filtered.append(i)
     return w2token_batch,input_ids_filtered
@@ -277,7 +281,7 @@ def tokenid2wordid(input_ids,tokenizer,examples):
 
 
 def examples2embeds(examples,tokenizer,model,device,writer,args):
-    inputs=tokenizer.batch_encode_plus(examples,max_length=args.max_seq_length,return_attention_masks=True,add_special_tokens=True,pad_to_max_length='right')
+    inputs=tokenizer.batch_encode_plus(examples,max_length=args.max_seq_length,return_attention_mask=True,add_special_tokens=True,pad_to_max_length='right')
     input_ids=torch.tensor(inputs['input_ids'])
     attention_mask=torch.tensor(inputs['attention_mask']).to(device)
     if args.lg:
@@ -377,7 +381,7 @@ def main():
     logger.info("device: {} n_gpu: {} distributed training: {}".format(device, n_gpu, bool(args.local_rank != -1)))
 
     # layer_indexes = [int(x) for x in args.layers.split(",")]
-    assert args.model_type in MODELS
+    # assert args.model_type in MODELS
     if args.model.startswith('xlnet'):
         EOS_NUM=2
     tokenizer = AutoTokenizer.from_pretrained(args.model,output_hidden_states=True,output_attentions=True)
