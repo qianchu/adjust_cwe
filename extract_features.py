@@ -271,7 +271,7 @@ def tokenid2wordid(input_ids,tokenizer,examples):
             input_start=input_end
         
         print (example.split())
-
+        print (tokenizer.tokenize(example))
         print (w2token)
         print (input_id)
         w2token_batch.append(w2token)
