@@ -201,7 +201,7 @@ def main():
         if args.model_type!=args.model:
             model_pre+='_'+os.path.basename(os.path.dirname(args.model))
         
-        writer=h5py.File(args.input_file+'.'+model_pre+'.ly-'+str(args.layers)+'.hdf5','w')
+        writer=h5py.File(args.input_file+'.'+model_pre+'.ly_'+str(args.layers)+'.hdf5','w')
 
     if args.local_rank == -1 or args.no_cuda:
         device = torch.device("cuda:{0}".format(args.gpu) if torch.cuda.is_available() and not args.no_cuda and args.gpu>=0 else "cpu")
