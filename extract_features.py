@@ -38,30 +38,7 @@ logging.basicConfig(format = '%(asctime)s - %(levelname)s - %(name)s -   %(messa
 logger = logging.getLogger(__name__)
 import h5py
 
-# BERT_BASE_CASED='bert-base-cased'
-# BERT='bert'
-# BERT_BASE_UNCASED='bert-base-uncased'
-# BERT_LARGE_CASED='bert-large-cased'
-# BERT_LARGE_CASED_WHOLEWORD='bert-large-cased-whole-word-masking'
-# ROBERTA_LARGE_CASED='roberta-large'
-# ROBERTA_BASE='roberta-base'
-# XLNET_LARGE='xlnet-large-cased'
-# T5='t5-large'
-# XLM='xlm-mlm-tlm-xnli15-1024'
-# XLM_R_LARGE='xlm-roberta-large'
-# XLM_R_LARGE_MIRROR='xlm-roberta-large-mirror'
-# XLM_R_BASE='xlm-roberta-base'
-# BERT_MULTI_BASE='bert-base-multilingual-cased'
-# BERT_MULTI_BASE_UNCASED='bert-base-multilingual-uncased'
-# BERT_MULTI_LARGE='bert-large-multilingual-cased'
-# BERT_DE_BASE_CASED='bert-base-german-cased'
-# BERT_PUBMED='microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract-fulltext'
-# BERT_MIRROR='bert_mirrorwic'
 
-
-# MODELS=[BERT_MULTI_BASE_UNCASED,ROBERTA_BASE, BERT_MIRROR,XLM_R_LARGE_MIRROR,BERT_PUBMED,BERT_DE_BASE_CASED,BERT_MULTI_BASE,BERT_MULTI_LARGE,BERT,BERT_BASE_CASED,BERT_BASE_UNCASED,ROBERTA_LARGE_CASED,BERT_LARGE_CASED,XLNET_LARGE,T5,XLM,BERT_LARGE_CASED_WHOLEWORD,XLM_R_LARGE,XLM_R_BASE]
-# MODELNAME2MODEL={BERT_MULTI_BASE_UNCASED:BertModel, ROBERTA_BASE:RobertaModel, BERT_MIRROR:BertModel, XLM_R_LARGE_MIRROR:XLMRobertaModel,BERT_PUBMED:BertModel,BERT_DE_BASE_CASED:BertModel,BERT_MULTI_LARGE:BertModel,BERT_MULTI_BASE:BertModel,BERT:BertModel,BERT_BASE_CASED:BertModel,BERT_LARGE_CASED_WHOLEWORD:BertModel,BERT_BASE_UNCASED:BertModel,BERT_LARGE_CASED:BertModel,ROBERTA_LARGE_CASED:RobertaModel,XLNET_LARGE:XLNetModel,T5:T5Model,XLM:XLMModel,XLM_R_LARGE:XLMRobertaModel,XLM_R_BASE:XLMRobertaModel}
-# MODELNAME2TOKENIZERS={ROBERTA_BASE:RobertaTokenizer,BERT_MULTI_BASE_UNCASED:BertTokenizer, BERT_MIRROR:BertTokenizer, XLM_R_LARGE_MIRROR:XLMRobertaTokenizer, BERT_PUBMED:BertTokenizer,BERT_DE_BASE_CASED:BertTokenizer,BERT_MULTI_LARGE:BertTokenizer,BERT_MULTI_BASE:BertTokenizer,BERT:BertTokenizer,BERT_BASE_CASED:BertTokenizer,BERT_LARGE_CASED_WHOLEWORD:BertTokenizer,BERT_BASE_UNCASED:BertTokenizer,BERT_LARGE_CASED:BertTokenizer, ROBERTA_LARGE_CASED:RobertaTokenizer,XLNET_LARGE:XLNetTokenizer,T5:T5Tokenizer,XLM:XLMTokenizer,XLM_R_LARGE:XLMRobertaTokenizer,XLM_R_BASE:XLMRobertaTokenizer}
 EOS_NUM=1
 
 
@@ -70,144 +47,6 @@ def produce_key(sent):
     sent = sent.replace('.', '$period$')
     sent = sent.replace('/', '$backslash$')
     return sent
-
-
-class InputExample(object):
-
-    def __init__(self, unique_id, text_a, text_b):
-        self.unique_id = unique_id
-        self.text_a = text_a
-        self.text_b = text_b
-
-
-class InputFeatures(object):
-    """A single set of features of data."""
-
-    def __init__(self, unique_id, tokens, input_ids, input_mask, input_type_ids,orig_to_tok_maps,orig_tokens):
-        self.unique_id = unique_id
-        self.tokens = tokens
-        self.input_ids = input_ids
-        self.input_mask = input_mask
-        self.input_type_ids = input_type_ids
-        self.orig_to_tok_maps=orig_to_tok_maps
-        self.orig_tokens=orig_tokens
-
-def tokenize_map(orig_tokens,tokenizer):
-    ### Input
-    labels = ["NNP", "NNP", "POS", "NN"]
-
-    ### Output
-    bert_tokens = []
-
-    # Token map will be an int -> int mapping between the `orig_tokens` index and
-    # the `bert_tokens` index.
-    orig_to_tok_map = []
-
-    for orig_token in orig_tokens:
-        orig_to_tok_map.append(len(bert_tokens)+1)
-        bert_tokens.extend(tokenizer.tokenize(orig_token))
-    return bert_tokens,orig_to_tok_map
-
-def convert_examples_to_features(examples, seq_length, tokenizer,args):
-    """Loads a data file into a list of `InputBatch`s."""
-
-    features = []
-    for (ex_index, example) in enumerate(examples):
-        orig_tokens=example.text_a.split()
-        tokens_a,orig_to_tok_map_a = tokenize_map(orig_tokens,tokenizer)
-        tokens_b = None
-        if example.text_b:
-            tokens_b,orig_to_tok_map_b = tokenize_map(example.text_b.split(),tokenizer)
-            orig_tokens+=example.text_b.split()
-            orig_to_tok_map_a+=orig_to_tok_map_b
-        if tokens_b:
-            # Modifies `tokens_a` and `tokens_b` in place so that the total
-            # length is less than the specified length.
-            # Account for [CLS], [SEP], [SEP] with "- 3"
-            _truncate_seq_pair(tokens_a, tokens_b, seq_length - 3)
-        else:
-            # Account for [CLS] and [SEP] with "- 2"
-            if len(tokens_a) > seq_length - 2:
-                print ('exceed length:',tokens_a)
-                continue #skip when the length exceeds
-                # tokens_a = tokens_a[0:(seq_length - 2)]
-
-        tokens = []
-        input_type_ids = []
-        tokens.append("[CLS]")
-        input_type_ids.append(0)
-        for token in tokens_a:
-            tokens.append(token)
-            input_type_ids.append(0)
-        if not args.vocab:
-            tokens.append("[SEP]")
-            input_type_ids.append(0)
-
-        if tokens_b:
-            for token in tokens_b:
-                tokens.append(token)
-                input_type_ids.append(1)
-            if not args.vocab:
-                tokens.append("[SEP]")
-                input_type_ids.append(1)
-
-        input_ids = tokenizer.convert_tokens_to_ids(tokens)
-
-        # The mask has 1 for real tokens and 0 for padding tokens. Only real
-        # tokens are attended to.
-        input_mask = [1] * len(input_ids)
-
-        # Zero-pad up to the sequence length.
-        while len(input_ids) < seq_length:
-            input_ids.append(0)
-            input_mask.append(0)
-            input_type_ids.append(0)
-
-        while len(orig_to_tok_map_a) < seq_length:
-            orig_to_tok_map_a.append(0)
-
-        assert len(orig_to_tok_map_a) == seq_length
-        assert len(input_ids) == seq_length
-        assert len(input_mask) == seq_length
-        assert len(input_type_ids) == seq_length
-
-        if ex_index < 5:
-            logger.info("*** Example ***")
-            logger.info("unique_id: %s" % (example.unique_id))
-            logger.info("tokens: %s" % " ".join([str(x) for x in tokens]))
-            logger.info("input_ids: %s" % " ".join([str(x) for x in input_ids]))
-            logger.info("input_mask: %s" % " ".join([str(x) for x in input_mask]))
-            logger.info(
-                "input_type_ids: %s" % " ".join([str(x) for x in input_type_ids]))
-
-        features.append(
-            InputFeatures(
-                unique_id=example.unique_id,
-                tokens=tokens,
-                input_ids=input_ids,
-                input_mask=input_mask,
-                input_type_ids=input_type_ids,
-                orig_to_tok_maps=orig_to_tok_map_a,
-                orig_tokens=orig_tokens))
-    return features
-
-
-def _truncate_seq_pair(tokens_a, tokens_b, max_length):
-    """Truncates a sequence pair in place to the maximum length."""
-
-    # This is a simple heuristic which will always truncate the longer sequence
-    # one token at a time. This makes more sense than truncating an equal percent
-    # of tokens from each, since if one sequence is very short then each token
-    # that's truncated likely contains more information than a longer sequence.
-    while True:
-        total_length = len(tokens_a) + len(tokens_b)
-        if total_length <= max_length:
-            break
-        if len(tokens_a) > len(tokens_b):
-            tokens_a.pop()
-        else:
-            tokens_b.pop()
-
 
 
 def read_examples(input_file,example_batch):
@@ -269,11 +108,7 @@ def tokenid2wordid(input_ids,tokenizer,examples):
             input_end=input_start+len(w_ids)
             w2token.append((input_start,input_end))
             input_start=input_end
-        
-        print (example.split())
-        print (tokenizer.tokenize(example))
-        print (w2token)
-        print (input_id)
+
         w2token_batch.append(w2token)
         input_ids_filtered.append(i)
     return w2token_batch,input_ids_filtered
@@ -288,8 +123,6 @@ def examples2embeds(examples,tokenizer,model,device,writer,args):
         language_id = tokenizer.lang2id[args.lg]
         langs = torch.tensor([[language_id] * input_ids.shape[1]] * len(examples)).to(device)
 
-    # print (examples)
-    # print (input_ids)
     input_ids=input_ids.to(device)
     model.eval()
     with torch.no_grad():
