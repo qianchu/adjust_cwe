@@ -16,5 +16,5 @@ for f in "train_data/en_200k_shuffled.whitespace.txt";
 do
     echo "processing ${f}"
     python3 extract_features.py --input_file ${f}  --layers ${layers} --model ${model}  --gpu ${cuda} --batch_size 100;
-    python hdf5_to_json.py ${f}.${model}.ly_${layers}
+    python hdf5_to_json.py ${f}.${model}.ly_${layers}.hdf5
 done
