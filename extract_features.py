@@ -14,23 +14,15 @@
 # limitations under the License.
 """Extract pre-computed feature vectors from a PyTorch BERT model."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
 
 import argparse
-import collections
 import logging
-import json
-import re
 
 import torch
-from torch.utils.data import TensorDataset, DataLoader, SequentialSampler
 from torch.utils.data.distributed import DistributedSampler
 
 from transformers import AutoTokenizer, AutoModel
 import numpy
-import sys
 
 logging.basicConfig(format = '%(asctime)s - %(levelname)s - %(name)s -   %(message)s', 
                     datefmt = '%m/%d/%Y %H:%M:%S',
