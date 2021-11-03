@@ -7,7 +7,7 @@ ft_model=$4
 dim=$5
 
 # evaluation dataset
-for f in "usim/usim_en.txt" "scws/scws.txt" "WiC_dataset/train/train.data.txt" "WiC_dataset/dev/dev.data.txt" "WiC_dataset/test/test.data.txt";
+for f in "usim/usim_en.txt" "context_simlex/evaluation_kit_final/data/data_en.tsv.out" "scws/scws.txt" "WiC_dataset/train/train.data.txt" "WiC_dataset/dev/dev.data.txt" "WiC_dataset/test/test.data.txt";
 do
     echo "processing ${f}"
     python3 extract_features.py --input_file eval_data/${f}  --layers ${layers} --model ${model}  --gpu ${cuda} --batch_size 100;

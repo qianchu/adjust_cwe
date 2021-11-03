@@ -79,7 +79,6 @@ if __name__=='__main__':
     # args.add_argument('--model_type',default='fasttext',type=str,help='fasttext or w2v or glove')
     args.add_argument('--text', type=str, help='text file')
     args.add_argument('--dim',type=int, help='dimension size for ft embedding')
-    args.add_argument('--lg',type=str,default='en',help='language')
     args=args.parse_args()
     
 
@@ -89,9 +88,9 @@ if __name__=='__main__':
     text2embed=get_text2embed(args.text,model)
     
 
-    output_prefix=os.path.join(os.path.dirname(args.text),os.path.basename(args.model)+'_'+args.lg+'_'+str(args.dim))
+    output_prefix=args.text+'__'+os.path.basename(args.model)+'.'+str(args.dim)
     
-    np.save(output_prefix+'.ly_0.hdf5.npy',text2embed)
+    np.save(output_prefix+'.ly_0__.hdf5.npy',text2embed)
             
 
 
