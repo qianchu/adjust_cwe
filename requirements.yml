@@ -16,9 +16,9 @@ dependencies:
   - spacy
   - h5py
   - pytorch=1.10.0
-  - transformers=2.8.0
   - pip:
     - jupyter
     - pyyaml
+    - transformers==2.8.0
 
 prefix: /opt/conda/envs/
