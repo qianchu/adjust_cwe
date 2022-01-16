@@ -1,4 +1,4 @@
-from variable_names import *
+# from variable_names import *
 import torch
 import numpy as np
 import os
