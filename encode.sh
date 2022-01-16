@@ -11,13 +11,13 @@ for f in "usim/usim_en.txt" "context_simlex/evaluation_kit_final/data/data_en.ts
 do
     echo "processing ${f}"
     python3 extract_features.py --input_file eval_data/${f}  --layers ${layers} --model ${model}  --gpu ${cuda} --batch_size 100;
-    python hdf5_to_json.py eval_data/${f}.${model}.ly_${layers}
+    python hdf5_to_json.py eval_data/${f}.${model}.ly_${layers}__.hdf5
 done
 
 for f in "train_data/en_200k_shuffled.whitespace.txt";
 do
     echo "processing ${f}"
     python3 extract_features.py --input_file ${f}  --layers ${layers} --model ${model}  --gpu ${cuda} --batch_size 100;
-    python hdf5_to_json.py ${f}.${model}.ly_${layers}.hdf5
+    python hdf5_to_json.py ${f}.${model}.ly_${layers}__.hdf5
     python fasttext_embed.py --model ${ft_model} --text ${f} --dim ${dim}
 done
