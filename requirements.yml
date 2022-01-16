@@ -1,4 +1,4 @@
-name: feature_bootstrap
+name: adjust_cwe
 
 channels:
   - defaults
@@ -16,6 +16,7 @@ dependencies:
   - spacy
   - h5py
   - pytorch=1.0.0
+  - transformers
   - pip:
     - jupyter
     - pyyaml
