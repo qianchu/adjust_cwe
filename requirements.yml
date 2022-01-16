@@ -19,6 +19,6 @@ dependencies:
   - pip:
     - jupyter
     - pyyaml
-    - transformers==2.8.0
+    - transformers==4.15.0
 
 prefix: /opt/conda/envs/
