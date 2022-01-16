@@ -15,8 +15,8 @@ dependencies:
   - nltk
   - spacy
   - h5py
-  - pytorch=1.0.0
-  - transformers
+  - pytorch=1.10.0
+  - transformers=2.8.0
   - pip:
     - jupyter
     - pyyaml
