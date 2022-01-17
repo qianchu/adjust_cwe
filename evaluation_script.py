@@ -116,7 +116,7 @@ def wic_test(test_data_f,test_f):
 
 def produce_context_simlex_data(test_data_dir,base_embed):
     test_f=os.path.join(test_data_dir,'./context_simlex/evaluation_kit_final/data/data_en.tsv.out')
-    test_data_f=os.path.join(test_data_dir,'./context_simlex/evaluation_kit_final/data/data_en.tsv.out.__{0}.__hdf5.npy'.format(base_embed))
+    test_data_f=os.path.join(test_data_dir,'./context_simlex/evaluation_kit_final/data/data_en.tsv.out__{0}__.hdf5.npy'.format(base_embed))
     return test_f,test_data_f
 
 
