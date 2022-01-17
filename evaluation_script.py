@@ -34,7 +34,7 @@ def produce_test_material(test_data_dir,evaluation,base_embed):
 
   
     elif evaluation =='usim':
-        test_data_f=os.path.join(test_data_dir,'./usim/usim_en.txt{0}__{1}.__hdf5.npy'.format(suffix,base_embed))
+        test_data_f=os.path.join(test_data_dir,'./usim/usim_en.txt{0}__{1}__.hdf5.npy'.format(suffix,base_embed))
 
         test_f=os.path.join(test_data_dir,'./usim/usim_en.txt{0}'.format(suffix[4:]))
     
