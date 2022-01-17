@@ -109,7 +109,7 @@ def wic_test(test_data_f,test_f):
             assert score==scores[-1]
             count=0
 
-    return (torch.from_numpy(np.vstack(test_0,0)),torch.from_numpy(np.vstack(test_1)),scores,text_0,text_1,loc_0,loc_1)
+    return (torch.from_numpy(np.vstack(test_0)),torch.from_numpy(np.vstack(test_1)),scores,text_0,text_1,loc_0,loc_1)
 
 
 
