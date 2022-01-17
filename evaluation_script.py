@@ -38,10 +38,10 @@ def produce_test_material(test_data_dir,evaluation,base_embed):
 
         test_f=os.path.join(test_data_dir,'./usim/usim_en.txt{0}'.format(suffix[4:]))
     
-    test_1,test_2,scores=scws_test(test_data_f, test_f)
         
     else:
         raise NotImplementedError
+    test_1,test_2,scores=scws_test(test_data_f, test_f)
     return torch.from_numpy(test_1),torch.from_numpy(test_2),scores
     
   
