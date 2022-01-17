@@ -262,8 +262,8 @@ def eval_context_simlex(args,trainer_mim=None):
         normalize_embeddings(data2,args.norm,mean=mean)
         
         if trainer_mim is not None:
-            data1=trainer_mim.model_tgt(data1.to(self.device))
-            data2=trainer_mim.model_tgt(data2.to(self.device))
+            data1=trainer_mim.model_tgt(data1.to(trainer_mim.device))
+            data2=trainer_mim.model_tgt(data2.to(trainer_mim.device))
 
             
         scores_pred = produce_cosine_list(data1, data2)
