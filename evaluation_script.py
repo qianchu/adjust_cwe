@@ -131,7 +131,7 @@ def produce_wic_data(test_data_dir,base_embed,lg='en'):
     data_scores={}
     data_scores['train'] = wic_test(train_data_f, train_f)
     data_scores['dev'] = wic_test(dev_data_f, dev_f)
-    data_scores['train']= wic_test(test_data_f, test_f)
+    data_scores['test']= wic_test(test_data_f, test_f)
 
     return data_scores
 
