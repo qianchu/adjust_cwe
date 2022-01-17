@@ -299,9 +299,9 @@ def eval_wic(args,trainer_mim=None):
                 wicdata[d]=trainer_mim.model_tgt(wicdata[d].to(self.device))
             
  
-        train_scores_pred = produce_cosine_list(d['train_1'], d['train_2'])
+        train_scores_pred = produce_cosine_list(wicdata['train_1'], wicdata['train_2'])
         print ('==WIC RESULTS==: average cosine for training',sum(train_scores_pred)/len(train_scores_pred),len(train_scores_pred))
-        dev_scores_pred = produce_cosine_list(d['dev_1'], d['dev_2'])
+        dev_scores_pred = produce_cosine_list(wicdata['dev_1'], wicdata['dev_2'])
 
         print ('train_dev results for wic ')
        
@@ -312,7 +312,7 @@ def eval_wic(args,trainer_mim=None):
 
         print ('test results for wic with traindev thres')
 
-        scores_pred = produce_cosine_list(d['test_1'], d['test_2'])
+        scores_pred = produce_cosine_list(wicdata['test_1'], wicdata['test_2'])
         thres, test_pred=eval_wic_cosine(scores_pred,test_scores,train_dev_thres)
 
         print ('train results for wic with traindev thres')
