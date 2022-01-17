@@ -148,7 +148,7 @@ def eval_sim( testset, args,trainer_mim=None):
         normalize_embeddings(test_2,args.norm,mean=mean)
         
         if trainer_mim is not None:
-            test_1,test_2=trainer_mim.model_tgt(test_1.to(self.device)),trainer_mim.model_tgt(test_2.to(self.device))
+            test_1,test_2=trainer_mim.model_tgt(test_1.to(trainer_mim.device)),trainer_mim.model_tgt(test_2.to(trainer_mim.device))
         
         scores_pred = produce_cosine_list(test_1, test_2)
         rho = spearmanr(scores, scores_pred)[0]
@@ -296,7 +296,7 @@ def eval_wic(args,trainer_mim=None):
        
         for d in wicdata:
             if trainer_mim is not None:
-                wicdata[d]=trainer_mim.model_tgt(wicdata[d].to(self.device))
+                wicdata[d]=trainer_mim.model_tgt(wicdata[d].to(trainer_mim.device))
             
  
         train_scores_pred = produce_cosine_list(wicdata['train_1'], wicdata['train_2'])
