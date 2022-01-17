@@ -61,7 +61,7 @@ def preprocess_data_type(datatext,data_embed_src,data_embed_tgt,max_example=100)
         outputdata_src.append(w2type_src[w])
         outputdata_tgt.append(w2type_tgt[w])
     print ('processed {0} embeddings',len(outputdata_src))
-    return torch.from_numpy(np.vstack(outputdata_src,0)),torch.from_numpy(np.vstack(outputdata_tgt,0))
+    return torch.from_numpy(np.vstack(outputdata_src)),torch.from_numpy(np.vstack(outputdata_tgt))
     
 if __name__=='__main__':
     import argparse
