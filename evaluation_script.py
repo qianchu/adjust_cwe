@@ -42,7 +42,7 @@ def produce_test_material(test_data_dir,evaluation,base_embed):
     else:
         raise NotImplementedError
     test_1,test_2,scores=scws_test(test_data_f, test_f)
-    return torch.from_numpy(test_1),torch.from_numpy(test_2),scores
+    return torch.from_numpy(np.vstack(test_1)),torch.from_numpy(np.vstack(test_2)),scores
     
   
 
