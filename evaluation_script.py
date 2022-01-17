@@ -221,7 +221,7 @@ def csimlex_test_data(args,base_embed):
         except KeyError:
             print ('NOT FOUND: {0}'.format(text))
 
-    return torch.from_numpy(np.vstack(test_0,0)),torch.from_numpy(np.vstack(test_1,0))
+    return torch.from_numpy(np.vstack(test_0)),torch.from_numpy(np.vstack(test_1))
 
 def output_csimlex(scores_pred,trainer_mim,args):
     subtask1=['change']
