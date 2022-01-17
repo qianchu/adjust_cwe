@@ -121,11 +121,11 @@ def produce_context_simlex_data(test_data_dir,base_embed):
 
 
 def produce_wic_data(test_data_dir,base_embed,lg='en'):
-    train_data_f = os.path.join(test_data_dir,'./WiC_dataset/train/train.data.txt.out.__{0}__.hdf5.npy'.format(base_embed))
+    train_data_f = os.path.join(test_data_dir,'./WiC_dataset/train/train.data.txt.out__{0}__.hdf5.npy'.format(base_embed))
     train_f = os.path.join(test_data_dir,  './WiC_dataset/train/train.data.txt.out')
-    dev_data_f=os.path.join(test_data_dir,'./WiC_dataset/dev/dev.data.txt.out.__{0}__.hdf5.npy'.format(base_embed))
+    dev_data_f=os.path.join(test_data_dir,'./WiC_dataset/dev/dev.data.txt.out__{0}__.hdf5.npy'.format(base_embed))
     dev_f=os.path.join(test_data_dir,'./WiC_dataset/dev/dev.data.txt.out')
-    test_data_f=os.path.join(test_data_dir,'./WiC_dataset/test/test.data.txt.out.__{0}__.hdf5.npy'.format(base_embed))
+    test_data_f=os.path.join(test_data_dir,'./WiC_dataset/test/test.data.txt.out__{0}__.hdf5.npy'.format(base_embed))
     test_f=os.path.join(test_data_dir,'./WiC_dataset/test/test.data.txt.out')
 
     data_scores={}
