@@ -1,6 +1,8 @@
 
 def train(src_data,tgt_data,device):
-    
+    src_data=src_data.to(device)
+    tgt_data=tgt_data.to(device)
+
     #1. Orthogonal
     trainer_ortho=Trainer(src_data.size()[1], tgt_data.size()[1], tgt_data.size()[1], device)
     trainer_ortho.model_type='ortho'
