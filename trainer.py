@@ -34,8 +34,8 @@ class Trainer():
         self.src_mean = None
         self.tgt_mean = None
         self.init_src_model = None
-        self.model_src = LinearProjection(self.D_in_src, self.D_out)
-        self.model_tgt = LinearProjection(self.D_in_tgt, self.D_out)
+        self.model_src = LinearProjection(self.D_in_src, self.D_out).to(self.device)
+        self.model_tgt = LinearProjection(self.D_in_tgt, self.D_out).to(self.device)
         self.reg_ratio=0
 
     def exact_model_ortho_update(self, X_src, X_tgt):
