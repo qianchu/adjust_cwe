@@ -13,7 +13,8 @@ def evaluation(trainer_mim,args):
     print ('==original space==')
     eval_wic(args)
     eval_sim('scws',args)
-    eval_context_simlex(args,trainer_mim)
+    eval_sim('usim',args)
+    eval_context_simlex(args)
 
     print ('==after adjustiment==')
     eval_wic(args,trainer_mim)
