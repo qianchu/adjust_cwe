@@ -60,9 +60,9 @@ def get_text2embed(text,model):
                     vector=pad_vector(vector,args.dim)
 
                 line_vectors.append(vector)
-            print (found_unk)
-            if not found_unk:
-                text2embed[key]=np.array(line_vectors,dtype='float32')
+            # print (found_unk)
+            # if not found_unk:
+            text2embed[key]=np.array(line_vectors,dtype='float32')
     print (len(text2embed))
     return text2embed
 
