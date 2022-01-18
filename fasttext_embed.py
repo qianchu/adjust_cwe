@@ -55,7 +55,7 @@ def get_text2embed(text,model):
                     else:
                         vector=np.random.rand(args.dim)
                     # unks[w]=True
-                    break
+                    # break
                 if len(vector)<args.dim:
                     vector=pad_vector(vector,args.dim)
 
