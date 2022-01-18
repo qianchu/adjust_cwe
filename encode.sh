@@ -17,7 +17,7 @@ done
 for f in "train_data/en_200k_shuffled.whitespace.txt";
 do
     echo "processing ${f}"
-    python3 extract_features.py --input_file ${f}  --layers ${layers} --model ${model}  --gpu ${cuda} --batch_size 100;
+    python3 extract_features.py --input_file ${f}  --max_seq_length 500 --layers ${layers} --model ${model}  --gpu ${cuda} --batch_size 100;
     python hdf5_to_json.py ${f}__${model}.ly_${layers}__.hdf5
     python fasttext_embed.py --model ${ft_model} --text ${f} --dim ${dim}
 done
