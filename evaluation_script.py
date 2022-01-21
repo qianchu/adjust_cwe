@@ -10,13 +10,13 @@ from scipy.stats import spearmanr
 from zipfile import ZipFile
 
 def evaluation(trainer_mim,args):
-    print ('==original space==')
+    print ('==========original space===========')
     eval_wic(args)
     eval_sim('scws',args)
     eval_sim('usim',args)
     eval_context_simlex(args)
 
-    print ('==after adjustiment==')
+    print ('=============after adjustiment=============')
     eval_wic(args,trainer_mim)
     eval_sim('scws',args,trainer_mim)
     eval_sim('usim',args,trainer_mim)
@@ -151,10 +151,10 @@ def eval_sim( testset, args,trainer_mim=None):
         if trainer_mim is not None:
             test_1,test_2=trainer_mim.model_tgt(test_1.to(trainer_mim.device)),trainer_mim.model_tgt(test_2.to(trainer_mim.device))
         
-        scores_pred = produce_cosine_list(test_1, test_2)
-        rho = spearmanr(scores, scores_pred)[0]
+        # scores_pred = produce_cosine_list(test_1, test_2)
+        # rho = spearmanr(scores, scores_pred)[0]
             
-        print('spearman rank for original embedding {0} is {1}'.format(testset, rho))
+        # print('spearman rank for original embedding {0} is {1}'.format(testset, rho))
            
         scores_pred = produce_cosine_list(test_1, test_2)
         rho = spearmanr(scores, scores_pred)[0]
