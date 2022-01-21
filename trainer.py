@@ -54,13 +54,11 @@ class Trainer():
             self.model_src.eval()
             self.model_tgt.eval()
             src_embs = self.model_src(src_embs.to(self.device))
-            if self.model_type in 'mim':
+            if self.model_type in ['mim']:
                 tgt_embs = self.model_tgt(tgt_embs.to(self.device))
         return src_embs, tgt_embs
 
     def exact_model_update(self, X_src, X_tgt, model_replace):
-        X_src_orig = X_src
-        X_tgt_orig = X_tgt
         X_src = X_src.cpu().numpy()
         X_tgt = X_tgt.cpu().numpy()
         W = inv(X_src.transpose().dot(X_src)).dot(X_src.transpose()).dot(X_tgt)

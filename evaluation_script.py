@@ -181,7 +181,7 @@ def thres_search(scores_pred,golds):
         corrects_true = np.where((np.array(scores_pred_label) == 'T') & (np.array(golds) == 'T'))[0]
         corrects_false=np.where((np.array(scores_pred_label) == 'F') & (np.array(golds) == 'F'))[0]
         num_corrects=len(corrects_true)+len(corrects_false)
-        print ('thres: {0}, num of correct: {1}, percentage is" {2}'.format(thres,num_corrects,num_corrects/len(scores_pred)))
+        # print ('thres: {0}, num of correct: {1}, percentage is" {2}'.format(thres,num_corrects,num_corrects/len(scores_pred)))
     return thres_max
 
 
