@@ -100,6 +100,7 @@ if __name__=='__main__':
         src_data,tgt_data=preprocess_data(args.data,args.src_data,args.tgt_data)
 
     args.tgt_data_mean=normalize_embeddings(tgt_data,args.norm)
+    args.src_data_mean=normalize_embeddings(src_data,args.norm)
 
     
     args.base_embed=os.path.basename(args.tgt_data).split('__')[1] # tgt embedding name
