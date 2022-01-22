@@ -113,6 +113,8 @@ if __name__=='__main__':
         torch.save(trainer_mim.model_tgt.state_dict(), args.base_embed+'..'+args.src_embed+'.pt')
         if args.tgt_data_mean is not None:        
             np.save(args.base_embed+'_mean_tgt.npy',np.array(args.tgt_data_mean.cpu()))
+        elif args.src_data_mean is not None:
+            np.save(args.base_embed+'_mean_tgt.npy',np.array(args.tgt_data_mean.cpu()))
 
     # 3. evaluation
     if args.eval:
