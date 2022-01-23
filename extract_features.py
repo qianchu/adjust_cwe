@@ -109,7 +109,7 @@ def tokenid2wordid(input_ids,tokenizer,examples):
 def examples2embeds_file(examples,tokenizer,model,device,writer,args):
     model.eval()
     with torch.no_grad():
-       wembs_sent_batch= examples2embeds(examples,tokenizer,model,args.device,args.max_seq_length,args.layers,lg=None)
+       wembs_sent_batch= examples2embeds(examples,tokenizer,model,device,args.max_seq_length,args.layers,lg=args.lg)
        for i,sent in enumerate(examples):
             sent=produce_key(sent)
             
