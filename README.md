@@ -52,30 +52,12 @@ Test predictions for WiC can be found in:
 
 ```
 import numpy as np
-from trainer import Trainer
+from trainer import Trainer, LinearProjection
 from helpers import normalize_embeddings
 from extract_features import examples2embeds
 import torch
 from transformers import AutoModel, AutoTokenizer
 
-
-class LinearProjection(torch.nn.Module):
-    def __init__(self, D_in,  D_out):
-        """
-        In the constructor we instantiate a nn.Linear modules and assign them as
-        member variables.
-        """
-        super(LinearProjection, self).__init__()
-        self.linear = torch.nn.Linear(D_in, D_out,bias=False)
-
-    def forward(self, x):
-        """
-        In the forward function we accept a Tensor of input data and we must return
-        a Tensor of output data. We can use Modules defined in the constructor as
-        well as arbitrary operators on Tensors.
-        """
-        project=self.linear(x)
-        return project
 
 ###1. initialization the mapping
 device = torch.device("cuda:0" if torch.cuda.is_available()  else "cpu")
@@ -94,7 +76,6 @@ max_seq_length=128
 examples=['this is the first example .','this is the second example .']
 #examples= [example.split() for example in examples]
 embs=examples2embeds(examples,tokenizer,model,device,max_seq_length,layers,lg=None)
-print (embs)
 #embs now is a list of arrays each of which consists of word-level embeddings in an example. Say that we want to apply the mapping on the first word's embedding in the second example, we can extract it as:
 emb=torch.tensor(embs[1][0:1])
 
