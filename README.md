@@ -6,6 +6,7 @@ This is the repository for the code in "Towards Better Context-aware Lexical Sem
  bash encode.sh [cuda] [model] [layer] [static model] [dimension]
  ```
  [static model] is the text file of a static model's embeddings. For example, you can download the fasttext model [here](https://www.dropbox.com/s/8uru7gp9ipo24p6/wiki.en.1024.vec?dl=0). 
+ 
  [layer] is the range of layers from the contextual representations to take an average
  
  ```
