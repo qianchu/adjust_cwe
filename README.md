@@ -54,7 +54,9 @@ Test predictions for WiC can be found in:
 import numpy as np
 from trainer import Trainer
 from helpers import normalize_embeddings
+from extract_features import examples2embeds
 import torch
+from transformers import AutoModel, AutoTokenizer
 
 
 class LinearProjection(torch.nn.Module):
@@ -75,26 +77,37 @@ class LinearProjection(torch.nn.Module):
         project=self.linear(x)
         return project
 
-###1. initialization
-mean=torch.from_numpy(np.load('en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0__mean_tgt.npy'))
-mapping_path='en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0__mim.pt'
+###1. initialization the mapping
+device = torch.device("cuda:0" if torch.cuda.is_available()  else "cpu")
+mean='bert-base-uncased.ly_9-13_mean_tgt.npy'
+mapping_path='bert-large-cased.ly_12-25..wiki.en.1024.vec.1024.ly_0.pt'
 dim=1024
-mapping = LinearProjection(dim, dim)
+mapping = LinearProjection(dim, dim).to(device)
 mapping.load_state_dict(torch.load(mapping_path))
 
 ###2.  get torch embeddings from CWE eg. from huggingface. Below is a random initialization
-emb=torch.rand(1,dim)
+tokenizer=AutoTokenizer.from_pretrained('bert-large-cased')
+model=AutoModel.from_pretrained('bert-large-cased',output_hidden_states=True,output_attentions=True)
+model.to(device)
+layers='12-25'
+max_seq_length=128
+examples=['this is the first example .','this is the second example .']
+#examples= [example.split() for example in examples]
+embs=examples2embeds(examples,tokenizer,model,device,max_seq_length,layers,lg=None)
+print (embs)
+#embs now is a list of arrays each of which consists of word-level embeddings in an example. Say that we want to apply the mapping on the first word's embedding in the second example, we can extract it as:
+emb=torch.tensor(embs[1][0:1])
 
 ###3. apply preprocessing
-# normalize and center    
-normalize_embeddings(emb,'normalize,center',mean=mean)
-## only normalize
-# normalize_embeddings(emb,'normalize')
+## normalize and center    
+#normalize_embeddings(emb,'normalize,center',mean=mean)
+# only normalize
+normalize_embeddings(emb,'normalize')
 ## or no preprocessing at all
 
 ###4. apply mapping
-mapped=mapping(emb)
-print (mapped)
+mapped=mapping(emb.to(device))
+
 
 ```
 
