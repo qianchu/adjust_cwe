@@ -129,7 +129,7 @@ def examples2embeds_file(examples,tokenizer,model,device,writer,args):
 
 def examples2embeds(examples,tokenizer,model,device,max_seq_length,layers,lg=None):
     inputs=tokenizer.batch_encode_plus(examples,max_length=max_seq_length,return_attention_mask=True,add_special_tokens=True,pad_to_max_length='right')
-    input_ids=torch.tensor(inputs['input_ids'])
+    input_ids=torch.tensor(inputs['input_ids']).to(device)
     attention_mask=torch.tensor(inputs['attention_mask']).to(device)
     if lg:
         language_id = tokenizer.lang2id[lg]
