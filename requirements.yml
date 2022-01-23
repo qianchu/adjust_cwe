@@ -1,4 +1,4 @@
-name: feature_bootstrap
+name: adjust_cwe
 
 channels:
   - defaults
@@ -7,7 +7,7 @@ channels:
   - conda-forge
 dependencies:
   - matplotlib=3.0.2
-  - numpy=1.15.4
+  - numpy=1.17
   - pip=18.1
   - python=3.6.8
   - scikit-learn=0.20.2
@@ -15,9 +15,10 @@ dependencies:
   - nltk
   - spacy
   - h5py
-  - pytorch=1.0.0
+  - pytorch=1.10.0
   - pip:
     - jupyter
     - pyyaml
+    - transformers==4.15.0
 
 prefix: /opt/conda/envs/
