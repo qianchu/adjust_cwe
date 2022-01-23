@@ -106,38 +106,13 @@ def tokenid2wordid(input_ids,tokenizer,examples):
     return w2token_batch,input_ids_filtered
 
 
-
-def examples2embeds(examples,tokenizer,model,device,writer,args):
-    inputs=tokenizer.batch_encode_plus(examples,max_length=args.max_seq_length,return_attention_mask=True,add_special_tokens=True,pad_to_max_length='right')
-    input_ids=torch.tensor(inputs['input_ids'])
-    attention_mask=torch.tensor(inputs['attention_mask']).to(device)
-    if args.lg:
-        language_id = tokenizer.lang2id[args.lg]
-        langs = torch.tensor([[language_id] * input_ids.shape[1]] * len(examples)).to(device)
-
-    input_ids=input_ids.to(device)
+def examples2embeds_file(examples,tokenizer,model,device,writer,args):
     model.eval()
     with torch.no_grad():
-        w2token_batch,ids_filtered=tokenid2wordid(input_ids,tokenizer,examples)
-        input_ids=input_ids[ids_filtered]
-        attention_mask=attention_mask[ids_filtered]
-        if args.lg:
-            all_encoder_layers, _ = model(input_ids=input_ids, langs=langs, attention_mask=attention_mask)[-2:]
-        else:
-            all_encoder_layers,_=model(input_ids=input_ids,attention_mask=attention_mask)[-2:]
-        layer_start,layer_end=int(args.layers.split('-')[0]),int(args.layers.split('-')[1])
-        
-        average_layer_batch = sum(all_encoder_layers[layer_start:layer_end]) / (layer_end-layer_start)
-        try:
-            wembs_sent_batch=tokenemb2wemb(average_layer_batch.cpu().detach().numpy(),w2token_batch)
-        except:
-            print ('ERROR')
-            print (average_layer_batch)
-            print (examples)
-            return None
-        for i,sent in enumerate(examples):
+       wembs_sent_batch= examples2embeds(examples,tokenizer,model,args.device,args.max_seq_length,args.layers,lg=None)
+       for i,sent in enumerate(examples):
             sent=produce_key(sent)
-
+            
             payload=numpy.array(wembs_sent_batch[i])
             print (payload.shape)
             try:
@@ -152,6 +127,35 @@ def examples2embeds(examples,tokenizer,model,device,writer,args):
             except OSError as e:
                 print(e, sent)
 
+def examples2embeds(examples,tokenizer,model,device,max_seq_length,layers,lg=None):
+    inputs=tokenizer.batch_encode_plus(examples,max_length=max_seq_length,return_attention_mask=True,add_special_tokens=True,pad_to_max_length='right')
+    input_ids=torch.tensor(inputs['input_ids'])
+    attention_mask=torch.tensor(inputs['attention_mask']).to(device)
+    if lg:
+        language_id = tokenizer.lang2id[lg]
+        langs = torch.tensor([[language_id] * input_ids.shape[1]] * len(examples)).to(device)
+
+    input_ids=input_ids.to(device)
+
+
+    w2token_batch,ids_filtered=tokenid2wordid(input_ids,tokenizer,examples)
+    input_ids=input_ids[ids_filtered]
+    attention_mask=attention_mask[ids_filtered]
+    if lg:
+        all_encoder_layers, _ = model(input_ids=input_ids, langs=langs, attention_mask=attention_mask)[-2:]
+    else:
+        all_encoder_layers,_=model(input_ids=input_ids,attention_mask=attention_mask)[-2:]
+    layer_start,layer_end=int(layers.split('-')[0]),int(layers.split('-')[1])
+    
+    average_layer_batch = sum(all_encoder_layers[layer_start:layer_end]) / (layer_end-layer_start)
+    try:
+        wembs_sent_batch=tokenemb2wemb(average_layer_batch.cpu().detach().numpy(),w2token_batch)
+    except:
+        print ('ERROR')
+        print (average_layer_batch)
+        print (examples)
+        return None
+    return wembs_sent_batch
 
    
 def main():
@@ -222,7 +226,7 @@ def main():
     for examples in read_examples(args.input_file,args.batch_size):
         example_counter+=1
         print ('processed {0} examples'.format (str(args.batch_size*example_counter)))
-        examples2embeds(examples,tokenizer,model,device,writer,args)
+        examples2embeds_file(examples,tokenizer,model,device,writer,args)
     writer.close()
 
 if __name__ == "__main__":
