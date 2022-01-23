@@ -5,7 +5,9 @@ This is the repository for the code in "Towards Better Context-aware Lexical Sem
  ```
  bash encode.sh [cuda] [model] [layer] [static model] [dimension]
  ```
- [static model] is the text file of a static model's embeddings. You can download the fasttext model that we used in our experiments [here]
+ [static model] is the text file of a static model's embeddings. For example, you can download the fasttext model [here](https://www.dropbox.com/s/8uru7gp9ipo24p6/wiki.en.1024.vec?dl=0). 
+ [layer] is the range of layers from the contextual representations to take an average
+ 
  ```
  bash encode.sh 0 bert-large-cased 12-25 fasttext-wiki-en-1024-bin-vec 768 &> encode.log &
  ```
@@ -14,17 +16,17 @@ This is the repository for the code in "Towards Better Context-aware Lexical Sem
 ```
 bash train.sh [train data] [target data] [source data]
 ```
-[train data] is the text train data
+[train data] is the text file of the train data. [target data] and [source data] are the npy embeddings precomputed for [train data]. 
 
 EG.
 ```
-bash train.sh 1 ./train_data/en_200k_shuffled.whitespace.txt ./train_data/en_200k_shuffled.whitespace.txt__bert-large-cased.ly_12-25__.hdf5.npy ./train_data/qianchu/adjust_cwe/en_200k_shuffled.witespace.txt__fasttext-wiki-en-1024-bin-vec.ly_0-0__.hdf5.npy
+bash train.sh 1 ./train_data/en_200k_shuffled.whitespace.txt ./train_data/en_200k_shuffled.whitespace.txt__bert-large-cased.ly_12-25__.hdf5.npy ./train_data/en_200k_shuffled.whitespace.txt__wiki.en.768.bin.vec.1024.ly_0__.hdf5.npy
 ```
 
 
-The alignment matrix will be output as './en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0__mim.pt'
+The alignment matrix will be output as 'bert-large-cased.ly_12-25..wiki.en.1024.vec.1024.ly_0.pt'
 
-If you chose centering in the preprocessing step, the mean numpy array for the target embeddings (which is Roberta in this example) will be stored in 'en_roberta\-large\~fasttext_wiki_en_1024_bin_200000_type0__mean_tgt.npy'. The mean numpy array for the source embeddings (which is Fasttext in this example) will be stored in 'en_roberta\-large\~fasttext_wiki_en_1024_bin_200000_type0__mean_src.npy'.
+If you chose centering in the preprocessing step, the mean numpy array for the target embeddings (which is BERT in this example) will be stored in 'bert-large-cased.ly_12-25_mean_tgt.npy'. The mean numpy array for the source embeddings (which is Fasttext in this example) will be stored in 'en_roberta\-large\~fasttext_wiki_en_1024_bin_200000_type0__mean_src.npy'.
 
 
 ## About the test results
@@ -32,17 +34,17 @@ usim and scws results are printed when you run main.py
 
 Test predictions for CoSimlex can be found in:  
 
-    before alignment: [evaluation data]/context_simlex/en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0
+    before alignment: eval_data/bert-large-cased.ly_12-25
 
-    after alignment: [evaluation data]/context_simlex/en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0__mim
+    after alignment: eval_data/bert-large-cased.ly_12-25.adjusted
 
     You can then submit the test predictions to https://competitions.codalab.org/competitions/20905
 
 Test predictions for WiC can be found in:
 
-    before alignment: [evaluation data]/eval_data/WiC_dataset/test/en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0
+    before alignment: eval_data/WiC_dataset/test/bert-large-cased.ly_12-25
 
-    after alignment: [evaluation data]/eval_data/WiC_dataset/test/en_roberta-large~fasttext_wiki_en_1024_bin_200000_type0_mim
+    after alignment: eval_data/WiC_dataset/test/bert-large-cased.ly_12-25.adjusted
 
     You can then submit the test predictions to https://competitions.codalab.org/competitions/20010
     
