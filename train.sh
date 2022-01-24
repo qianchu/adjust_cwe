@@ -9,7 +9,7 @@ python3 main.py \
 --data $train_data \
 --tgt_data $tgt_data \
 --src_data $src_data \
---norm normalize,center \
+--norm normalize \
 --type \
 --save \
 --eval \
